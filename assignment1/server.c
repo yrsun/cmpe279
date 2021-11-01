@@ -60,7 +60,7 @@ int main(int argc, char const *argv[])
 
     if (pid == 0) { // child process
         printf("Child UID is: %d\n", (int)getpwnam("nobody"));
-        setuid((int)getpwnam("nobody"));    //  drop its privileges to the “nobody” user using getpwnam
+        setuid(getpwnam("nobody")->pw_uid);    //  drop its privileges to the “nobody” user using getpwnam
         valread = read(new_socket, buffer, 1024);
         printf("Read %d bytes: %s\n", valread, buffer);
         send(new_socket, hello, strlen(hello), 0);
